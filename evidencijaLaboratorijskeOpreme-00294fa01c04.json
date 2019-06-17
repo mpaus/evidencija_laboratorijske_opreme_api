@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "cosmic-talent-239216",
+  "private_key_id": "00294fa01c0447fda0b78bc73a202f22cba6fa16",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDvIqLmKQYuLOJF\n7EbIRkbtMs0SmM1UEpVQ9vxBQUqUaAV/Qy0LYntFslHFXQb7B9cqU9yLeu7kO0F6\nbq+0hw8kj2QMVIpkZ+euU8P9EOkcv+a8PAvRWHvl/kjyQMKmX6cKjj9ifUEpWSdP\nsEsn/SG3kkdFXW2Lm0bp4k9jMwACmkjxTPrmvYfbyYhhPfdskiBF4EL7MOS1wEgj\nWda3vvCaQPVzoCoplYMUqfy62W2j7d8ZWTlh/prnbBgZPGqA9MDNUDYxOpi2M6le\nIbRRontklRdKxBANFmHqnweX+jS9cuH4ZdN4mJGEfGf5ptenk8v8gKOh1W/Ljf5o\nZ59T2fq7AgMBAAECggEADE7m6IbIW9G77Ge+tZSHFl1Xgx4HRM0CD3KZmuLj66M2\nU+MJa1Jset1fP752hgQqIHJu4bpNl8SvAutgiB+teVnCB1pwlxNmsCkn53DFNtFv\nwaorh4u7hiPM7bRvRbCbAJGVae8oI/CD8/ePHrtKJCXXckFen+FkSH8j9pH2QwFE\nHLChZcZp/PCNmAESo1+BvXTQ97jrm0kCg7fIUr8IIt5zxGCeWzBX/ujodODE0qyX\nmAjn0yGLCBRnrxt3z1OKUxANk752pStAgdfBXrrOezLCSVvFi46jwC56ObdvUw2q\nZZQt5IeyTZe133L15cJMeN8ia0HltxtZc5IZLXym0QKBgQD8J2pYVnnUuuOrv4IQ\nr9LA0yvOtTqOnYWDlpkUxr60uLIDJ0/oF3D2Z8Mjd+TyImjDIqltBxaSxrbYfSlw\nZSHgbFkjX9M3woTitjKiGDkXi2juQj7MXUjwOOIOSw8LUV34MMJa4UsLOShOypRB\nRSfKN/eJQhjRQbTiJHTJ6CvMSwKBgQDyyGMQk+V1YBNlKLj0uySOFlA+P0RRGGxQ\n29yRvAahaIPOH2f4N1poLUg+Bp2VD5kmY6gUmj/KLVLe+/QYRDkOGLYpYuNFGgq1\nBCy0nH1FSdFKyL2cE8PVOp6MOjYg31n0UrT0NHh65qfCrdBlIDcxbaR9s299G3Tq\nGy10cralUQKBgB6rIJkb83d3P6etBEHJUMXZKVPb4QJlkE6f64CGZ72NVUFi76oX\n58pgdnCC7ZqxqrJJLfgvy4QQnT6ZgofEFSm5o+HUjtkSVJ1KccAbWB5P+3Q3JHIw\nymVFVeFNKchDnj1ImOr6yejUi92BcCS8J4nF4tqT6nbRGhIDQx0nmuQfAoGAIQpi\naQQnqySrHw4+tZeubuPcgcwsaPjw7MQvLWowYNEPdwLRLHekBx96gG54Daw0xIO1\ngTBI1CP87jnNy2uldCSqzdEWavYTVPU/fEj7x203XX0aSN5rvV4f66eUbD7ZSCXl\nWIK3jspLNHRhMxICUOjCBRVha95Lt/yA4CModjECgYEAllDIpc/Qw7rYn91AQFzv\nQQw2udyp98KbMkAsW9lb+j57C3vYbHUFiN6X0mccF5I8tejnoSo2e2wAtXxsxGny\n9qVhjfxfZ3FuzYXLnhDd3gqZoch5EkYhUunUH1r/oAolQSY0gjW+lz5Qo1PtOWGe\ny1nh9B4QdL5gFyR02hXMZVo=\n-----END PRIVATE KEY-----\n",
+  "client_email": "gcs-evidencija-opreme@cosmic-talent-239216.iam.gserviceaccount.com",
+  "client_id": "117168903783623087022",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gcs-evidencija-opreme%40cosmic-talent-239216.iam.gserviceaccount.com"
+}
