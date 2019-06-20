@@ -17,7 +17,8 @@ import {
 } from './types'
 
 import {
-  CreateUserMutation
+  CreateUserMutation,
+  DeleteUserMutation
 } from './mutations';
 
 const RootQueryType = new GraphQLObjectType({
@@ -105,7 +106,8 @@ const RootQueryType = new GraphQLObjectType({
 const RootMutationType = new GraphQLObjectType({
     name: 'RootMutationType',
     fields: () => ({
-      CreateUser: CreateUserMutation
+      CreateUser: CreateUserMutation,
+      DeleteUser: DeleteUserMutation
     })
 });
 

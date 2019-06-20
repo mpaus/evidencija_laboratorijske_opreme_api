@@ -17,7 +17,6 @@ export const korisnikType = new GraphQLObjectType({
         maticniBroj: { type: GraphQLNonNull(GraphQLString) },
         ime: { type: GraphQLNonNull(GraphQLString) },
         prezime: { type: GraphQLNonNull(GraphQLString) },
-        slikaId: { type: GraphQLID },
         brojTelefona: { type: GraphQLNonNull(GraphQLString) },
         ulogaId: { type: GraphQLNonNull(GraphQLID)},
         slikaUrl: { type: GraphQLString },

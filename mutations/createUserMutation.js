@@ -45,7 +45,10 @@ const createUserMutation = async ({ input: { email, lozinka, maticniBroj, ime, p
             destination: filename,
             metadata: {
                 contentType: mimetype,
-        }}).then(async (res) => res[0].getMetadata().then(res => res[0].selfLink)).catch(err => console.log(err));
+        }}).then(async (res) => res[0].getMetadata().then(res => {
+            console.log(res[0]);
+            return res[0].mediaLink;
+        })).catch(err => console.log(err));
         });
 
     return await database('korisnik').insert({
