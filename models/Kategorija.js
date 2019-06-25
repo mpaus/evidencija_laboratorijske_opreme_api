@@ -7,7 +7,7 @@ class Kategorija {
   }
 
   getAllWhere(obj, args, database) {
-    return database.select().from('kategorija').where({ id: obj.kategorija_id }).then(res => humps.camelizeKeys(res[0]));
+    return database.select().from('kategorija').where({ id: obj.kategorijaId }).then(res => humps.camelizeKeys(res[0])).catch(err => console.log(err));
   }
 }
 

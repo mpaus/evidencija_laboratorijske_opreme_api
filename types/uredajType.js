@@ -17,10 +17,12 @@ export const uredajType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLNonNull(GraphQLID) },
     nazivUredaja: { type: GraphQLNonNull(GraphQLString) },
+    serijskiBroj: { type: GraphQLNonNull(GraphQLString)},
     cijena: { type: GraphQLFloat },
     napomena: { type: GraphQLString },
     specifikacije: { type: GraphQLString },
     slikaUrl: { type: GraphQLString },
+    kategorijaId: { type: GraphQLNonNull(GraphQLID)},
     kategorija: {
       type: kategorijaType,
       resolve: (obj, args, { database }) => models.Kategorija.getAllWhere(obj, args, database),

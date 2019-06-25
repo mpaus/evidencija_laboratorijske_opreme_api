@@ -18,7 +18,11 @@ import {
 
 import {
   CreateUserMutation,
-  DeleteUserMutation
+  DeleteUserMutation,
+  DeleteUredajMutation,
+  CreateKategorijaMutation,
+  CreateUredajMutation,
+  UpdateUredajMutation
 } from './mutations';
 
 const RootQueryType = new GraphQLObjectType({
@@ -107,7 +111,11 @@ const RootMutationType = new GraphQLObjectType({
     name: 'RootMutationType',
     fields: () => ({
       CreateUser: CreateUserMutation,
-      DeleteUser: DeleteUserMutation
+      DeleteUser: DeleteUserMutation,
+      DeleteUredaj: DeleteUredajMutation,
+      CreateKategorija: CreateKategorijaMutation,
+      CreateUredaj: CreateUredajMutation,
+      UpdateUredaj: UpdateUredajMutation
     })
 });
 

@@ -1,4 +1,5 @@
 import { stanjeType } from '../types';
+import humps from "humps";
 
 class Stanje {
   getAll(obj, args, database) {
@@ -6,7 +7,7 @@ class Stanje {
   }
 
   getAllWhere(obj, args, database) {
-    return database.select().from('stanje').where({ id: obj.stanje_id }).then(res => res[0]);
+    return database.select().from('stanje').where({ id: obj.stanjeId }).then(res => humps.camelizeKeys(res[0])).catch(err => console.log(err));
   }
 }
 
