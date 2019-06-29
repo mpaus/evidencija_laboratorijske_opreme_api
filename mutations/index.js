@@ -5,3 +5,7 @@ export DeleteUredajMutation from './deleteUredajMutation';
 export CreateKategorijaMutation from './createKategorijaMutation';
 export CreateUredajMutation from './createUredajMutation';
 export UpdateUredajMutation from './updateUredajMutation';
+export CreateZahtjevMutation from './createZahtjevMutation';
+export AprooveZahtjevMutation from './aprooveZahtjevMutation';
+export DeclineZahtjevMutation from './declineZahtjevMutation';
+export ReturnUredajZahtjevMutation from './returnUredajZahtjevMutation';

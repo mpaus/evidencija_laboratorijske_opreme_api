@@ -30,7 +30,7 @@ const UpdateUredajInputType = new GraphQLInputObjectType({
 });
 
 
-const createUredajMutation = async ({ input: { id, nazivUredaja, serijskiBroj, cijena, napomena, specifikacije, kategorijaId }, file}, database) => {
+const updateUredajMutation = async ({ input: { id, nazivUredaja, serijskiBroj, cijena, napomena, specifikacije, kategorijaId }, file}, database) => {
 
     let slikaUrl = null;
 
@@ -75,6 +75,6 @@ module.exports = {
         file: { type: GraphQLUpload }
     },
     resolve(obj, args, { database }){
-        return createUredajMutation(args, database);
+        return updateUredajMutation(args, database);
     }
 };

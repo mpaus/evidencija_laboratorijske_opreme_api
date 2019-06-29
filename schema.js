@@ -2,6 +2,7 @@ import {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
+  GraphQLID,
   GraphQLList,
 } from 'graphql';
 
@@ -22,7 +23,11 @@ import {
   DeleteUredajMutation,
   CreateKategorijaMutation,
   CreateUredajMutation,
-  UpdateUredajMutation
+  UpdateUredajMutation,
+  CreateZahtjevMutation,
+  AprooveZahtjevMutation,
+  DeclineZahtjevMutation,
+  ReturnUredajZahtjevMutation
 } from './mutations';
 
 const RootQueryType = new GraphQLObjectType({
@@ -42,8 +47,8 @@ const RootQueryType = new GraphQLObjectType({
     stanje: {
       type: GraphQLList(stanjeType),
       args: {
-        key: {
-          type: GraphQLString,
+        id: {
+          type: GraphQLID,
         },
       },
       resolve(obj, args, { database }) {
@@ -75,8 +80,8 @@ const RootQueryType = new GraphQLObjectType({
     uredaj: {
       type: GraphQLList(uredajType),
       args: {
-        key: {
-          type: GraphQLString,
+        stanjeId: {
+          type: GraphQLID,
         },
       },
       resolve(obj, args, { database }) {
@@ -115,7 +120,11 @@ const RootMutationType = new GraphQLObjectType({
       DeleteUredaj: DeleteUredajMutation,
       CreateKategorija: CreateKategorijaMutation,
       CreateUredaj: CreateUredajMutation,
-      UpdateUredaj: UpdateUredajMutation
+      UpdateUredaj: UpdateUredajMutation,
+      CreateZahtjev: CreateZahtjevMutation,
+      AprooveZahtjev: AprooveZahtjevMutation,
+      DeclineZahtjev: DeclineZahtjevMutation,
+      ReturnUredajZahtjev: ReturnUredajZahtjevMutation
     })
 });
 

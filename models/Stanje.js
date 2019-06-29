@@ -3,7 +3,8 @@ import humps from "humps";
 
 class Stanje {
   getAll(obj, args, database) {
-    return database.select().from('stanje').then(res => res);
+    console.log(args);
+    return Object.entries(args).length === 0 ? database.select().from('stanje').then(res => humps.camelizeKeys(res)) : database.select().from('stanje').where({ id: args.id }).then(res => humps.camelizeKeys(res));
   }
 
   getAllWhere(obj, args, database) {
