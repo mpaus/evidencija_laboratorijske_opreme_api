@@ -3,7 +3,8 @@ import humps from 'humps';
 
 class ZahtjevPosudbe {
   getAll(obj, args, database) {
-    return database.select().from('zahtjev_posudbe').then(res => humps.camelizeKeys(res));
+    console.log(args);
+    return Object.entries(args).length === 0 ? database.select().from('zahtjev_posudbe').then(res => humps.camelizeKeys(res)) : database.select().from('zahtjev_posudbe').where({ stanje_id: args.stanjeId }).then(res => humps.camelizeKeys(res));
   }
 
   getAllWhere(obj, args, database) {

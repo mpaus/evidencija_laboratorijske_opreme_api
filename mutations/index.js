@@ -1,4 +1,4 @@
-export CreateUserMutation from './createUserMutation';
+export CreateKorisnikMutation from './createKorisnikMutation';
 export LoginMutation from './loginMutation';
 export DeleteUserMutation from './deleteUserMutation';
 export DeleteUredajMutation from './deleteUredajMutation';

@@ -18,7 +18,7 @@ import {
 } from './types'
 
 import {
-  CreateUserMutation,
+  CreateKorisnikMutation,
   DeleteUserMutation,
   DeleteUredajMutation,
   CreateKategorijaMutation,
@@ -91,8 +91,8 @@ const RootQueryType = new GraphQLObjectType({
     zahtjevPosudbe: {
       type: GraphQLList(zahtjevPosudbeType),
       args: {
-        key: {
-          type: GraphQLString,
+        stanjeId: {
+          type: GraphQLID,
         },
       },
       resolve(obj, args, { database }) {
@@ -115,7 +115,7 @@ const RootQueryType = new GraphQLObjectType({
 const RootMutationType = new GraphQLObjectType({
     name: 'RootMutationType',
     fields: () => ({
-      CreateUser: CreateUserMutation,
+      CreateKorisnik: CreateKorisnikMutation,
       DeleteUser: DeleteUserMutation,
       DeleteUredaj: DeleteUredajMutation,
       CreateKategorija: CreateKategorijaMutation,

@@ -36,7 +36,7 @@ const createZahtjevMutation = async ({ input: { pocetakPosudbe, krajPosudbe, raz
         razlog_posudbe: razlogPosudbe,
         korisnik_id: korisnikId,
         uredaj_id: uredajId,
-        stanje_id: 2,
+        stanje_id: 11,
     }).then(res => database.select().from('zahtjev_posudbe').where({ id: res[0] }).then(res => humps.camelizeKeys(res[0])));
 };
 

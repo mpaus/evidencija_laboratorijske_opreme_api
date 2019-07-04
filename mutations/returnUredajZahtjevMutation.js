@@ -23,8 +23,8 @@ const returnUredajZahtjevMutation = async ({ input: { id }}, database) => {
     return await database('zahtjev_posudbe')
         .where('id', '=', id)
         .update({
-            stanje_id: 1
-        }).then(res => database.select().from('zahtjev_posudbe').where({ id: res }).then(res => humps.camelizeKeys(res[0])));
+            stanje_id: 14
+        }).then(() => database.select().from('zahtjev_posudbe').where({ id }).then(res => humps.camelizeKeys(res[0])));
 };
 
 module.exports = {

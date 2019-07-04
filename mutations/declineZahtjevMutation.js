@@ -25,10 +25,10 @@ const declineZahtjevMutation = async ({ input: { id, odobritelj, napomenaProfeso
     return await database('zahtjev_posudbe')
         .where('id', '=', id)
         .update({
-            stanje_id: 1,
+            stanje_id: 13,
             odobritelj,
             napomena_profesora: napomenaProfesora
-        }).then(res => database.select().from('zahtjev_posudbe').where({ id: res }).then(res => humps.camelizeKeys(res[0])));
+        }).then(() => database.select().from('zahtjev_posudbe').where({ id }).then(res => humps.camelizeKeys(res[0])));
 };
 
 module.exports = {

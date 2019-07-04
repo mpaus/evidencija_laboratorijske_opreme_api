@@ -7,11 +7,8 @@ import {
 } from 'graphql';
 import humps from 'humps';
 import bcrypt from 'bcryptjs';
-import toArray from 'stream-to-array';
-import ulogaType from '../types/ulogaType';
 import { storage } from '../google_cloud_storage/index';
 import { GraphQLUpload } from 'graphql-upload'
-import fs from 'fs';
 
 import { korisnikType } from '../types';
 
@@ -29,27 +26,31 @@ const KorisnikInputType = new GraphQLInputObjectType({
 });
 
 
-const createUserMutation = async ({ input: { email, lozinka, maticniBroj, ime, prezime, brojTelefona, ulogaId }, file}, database) => {
+const createKorisnikMutation = async ({ input: { email, lozinka, maticniBroj, ime, prezime, brojTelefona, ulogaId }, file}, database) => {
 
     const hashLozinka = await bcrypt.hash(lozinka, 12);
+
     let slikaUrl = null;
 
-    await file.then(async slika => {
+    if(file) {
+        await file.then(async slika => {
 
-        const { filename, mimetype, createReadStream } = slika;
-        const stream = createReadStream();
+            const {filename, mimetype, createReadStream} = slika;
+            const stream = createReadStream();
 
-        const bucket = storage.bucket('evidencija_laboratorijske_opreme');
+            const bucket = storage.bucket('evidencija_laboratorijske_opreme');
 
-        slikaUrl = await bucket.upload(stream.path, {
-            destination: filename,
-            metadata: {
-                contentType: mimetype,
-        }}).then(async (res) => res[0].getMetadata().then(res => {
-            console.log(res[0]);
-            return res[0].mediaLink;
-        })).catch(err => console.log(err));
+            slikaUrl = await bucket.upload(stream.path, {
+                destination: filename,
+                metadata: {
+                    contentType: mimetype,
+                }
+            }).then(async (res) => res[0].getMetadata().then(res => {
+                console.log(res[0]);
+                return res[0].mediaLink;
+            })).catch(err => console.log(err));
         });
+    }
 
     return await database('korisnik').insert({
         email,
@@ -70,6 +71,6 @@ module.exports = {
         file: { type: GraphQLUpload }
     },
     resolve(obj, args, { database }){
-        return createUserMutation(args, database);
+        return createKorisnikMutation(args, database);
     }
 };
