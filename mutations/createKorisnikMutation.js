@@ -3,7 +3,6 @@ import {
     GraphQLNonNull,
     GraphQLString,
     GraphQLID,
-    GraphQLInt
 } from 'graphql';
 import humps from 'humps';
 import bcrypt from 'bcryptjs';
