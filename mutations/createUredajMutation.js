@@ -36,6 +36,7 @@ const createUredajMutation = async ({ input: { nazivUredaja, serijskiBroj, cijen
     await file.then(async slika => {
 
         const { filename, mimetype, createReadStream } = slika;
+
         const stream = createReadStream();
 
         const bucket = storage.bucket('evidencija_laboratorijske_opreme');

@@ -3,9 +3,16 @@ import humps from 'humps';
 
 class Korisnik {
     getAll(obj, args, database) {
-        return Object.entries(args).length === 0 ? database.select().from('korisnik').then(res => humps.camelizeKeys(res)) : database.select().from('korisnik').where({ uloga_id: args.ulogaId }).then(res => humps.camelizeKeys(res));
+        return database.select().from('korisnik').then(res => {
+            humps.camelizeKeys(res)
+        });
     }
     getAllWhere(obj, args, database) {
+        if(args.ulogaId){
+            return database.select().from('korisnik').where({ uloga_id: args.ulogaId }).then(res => humps.camelizeKeys(res));
+        } else if(args.id){
+            return database.select().from('korisnik').where({ id: args.id }).then(res => humps.camelizeKeys(res));
+        }
         return database.select().from('korisnik').where({ id: obj.korisnikId }).then(res => humps.camelizeKeys(res[0])).catch(err => console.log(err));
     }
     getOdobritelj(obj, args, database) {

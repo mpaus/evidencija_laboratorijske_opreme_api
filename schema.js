@@ -19,6 +19,7 @@ import {
 
 import {
   CreateKorisnikMutation,
+  UpdateKorisnikMutation,
   DeleteKorisnikMutation,
   DeleteUredajMutation,
   CreateKategorijaMutation,
@@ -39,8 +40,14 @@ const RootQueryType = new GraphQLObjectType({
         ulogaId: {
           type: GraphQLID,
         },
+        id: {
+          type: GraphQLID
+        }
       },
       resolve(obj, args, { database }) {
+        if(args.length !== 0){
+          return models.Korisnik.getAllWhere(obj, args, database);
+        }
         return models.Korisnik.getAll(obj, args, database);
       },
     },
@@ -52,6 +59,9 @@ const RootQueryType = new GraphQLObjectType({
         },
       },
       resolve(obj, args, { database }) {
+        if(args.length !== 0){
+          return models.Stanje.getAllWhere(obj, args, database);
+        }
         return models.Stanje.getAll(obj, args, database);
       },
     },
@@ -85,6 +95,9 @@ const RootQueryType = new GraphQLObjectType({
         },
       },
       resolve(obj, args, { database }) {
+        if(args.length !== 0){
+          return models.Uredaj.getAllWhere(obj, args, database);
+        }
         return models.Uredaj.getAll(obj, args, database);
       },
     },
@@ -96,6 +109,9 @@ const RootQueryType = new GraphQLObjectType({
         },
       },
       resolve(obj, args, { database }) {
+        if(args.length !== 0){
+          return models.ZahtjevPosudbe.getAllWhere(obj, args, database);
+        }
         return models.ZahtjevPosudbe.getAll(obj, args, database);
       },
     },
@@ -116,6 +132,7 @@ const RootMutationType = new GraphQLObjectType({
     name: 'RootMutationType',
     fields: () => ({
       CreateKorisnik: CreateKorisnikMutation,
+      UpdateKorisnik: UpdateKorisnikMutation,
       DeleteKorisnik: DeleteKorisnikMutation,
       DeleteUredaj: DeleteUredajMutation,
       CreateKategorija: CreateKategorijaMutation,

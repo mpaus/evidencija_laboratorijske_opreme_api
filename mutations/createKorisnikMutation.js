@@ -7,7 +7,9 @@ import {
 import humps from 'humps';
 import bcrypt from 'bcryptjs';
 import { storage } from '../google_cloud_storage/index';
-import { GraphQLUpload } from 'graphql-upload'
+import { GraphQLUpload } from 'graphql-upload';
+import fs from 'fs';
+import path from 'path';
 
 import { korisnikType } from '../types';
 
@@ -31,11 +33,15 @@ const createKorisnikMutation = async ({ input: { email, lozinka, maticniBroj, im
 
     let slikaUrl = null;
 
+    console.log(file);
+
     if(file) {
         await file.then(async slika => {
 
             const {filename, mimetype, createReadStream} = slika;
             const stream = createReadStream();
+
+            stream.pipe(fs.createWriteStream(__dirname + filename));
 
             const bucket = storage.bucket('evidencija_laboratorijske_opreme');
 
