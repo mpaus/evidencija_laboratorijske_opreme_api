@@ -11,12 +11,14 @@ const deleteUredajMutation = async ({ input }, database) => {
 
     console.log(input, 'DELETE');
 
+    await database('zahtjev_posudbe')
+        .where('uredaj_id', input)
+        .del();
+
     return await database('uredaj')
         .where('id', input)
         .del()
         .then( () => ( { id: input }));
-
-    return { id: input }
 };
 
 module.exports = {

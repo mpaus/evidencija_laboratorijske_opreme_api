@@ -26,47 +26,67 @@ const KorisnikInputType = new GraphQLInputObjectType({
     }
 });
 
+async function pipeToServer(filename, stream){
+    return new Promise(resolve => {
+        const writeStream = fs.createWriteStream(filename);
+
+        stream.pipe(writeStream);
+
+        writeStream.on('finish', (res) => resolve(res));
+    })
+}
+
 
 const createKorisnikMutation = async ({ input: { email, lozinka, maticniBroj, ime, prezime, brojTelefona, ulogaId }, file}, database) => {
 
     const hashLozinka = await bcrypt.hash(lozinka, 12);
 
-    let slikaUrl = null;
-
-    console.log(file);
-
     if(file) {
-        await file.then(async slika => {
+        const slika = await file;
 
-            const {filename, mimetype, createReadStream} = slika;
-            const stream = createReadStream();
+        const {filename, mimetype, encoding, createReadStream} = slika;
 
-            stream.pipe(fs.createWriteStream(__dirname + filename));
+        const stream = createReadStream();
 
-            const bucket = storage.bucket('evidencija_laboratorijske_opreme');
+        const bucket = storage.bucket('evidencija_laboratorijske_opreme');
 
-            slikaUrl = await bucket.upload(stream.path, {
-                destination: filename,
-                metadata: {
-                    contentType: mimetype,
-                }
-            }).then(async (res) => res[0].getMetadata().then(res => {
-                console.log(res[0]);
-                return res[0].mediaLink;
-            })).catch(err => console.log(err));
-        });
+        await pipeToServer(filename, stream);
+
+        const image = await bucket.upload(filename, {
+            destination: filename,
+            metadata: {
+                contentType: mimetype,
+                encoding
+            }
+        }).then(res => res[0]);
+
+        await fs.unlinkSync(filename);
+
+        const metadata = await image.getMetadata();
+
+        return await database('korisnik').insert({
+            email,
+            lozinka: hashLozinka,
+            maticni_broj: maticniBroj,
+            ime,
+            prezime,
+            broj_telefona: brojTelefona,
+            uloga_id: ulogaId,
+            slika_url: metadata[0].mediaLink
+        }).then(res => database.select().from('korisnik').where({ id: res[0] }).then(res => humps.camelizeKeys(res[0])));
+    } else {
+        return await database('korisnik').insert({
+            email,
+            lozinka: hashLozinka,
+            maticni_broj: maticniBroj,
+            ime,
+            prezime,
+            broj_telefona: brojTelefona,
+            uloga_id: ulogaId,
+            slika_url: null
+        }).then(res => database.select().from('korisnik').where({ id: res[0] }).then(res => humps.camelizeKeys(res[0])));
     }
 
-    return await database('korisnik').insert({
-        email,
-        lozinka: hashLozinka,
-        maticni_broj: maticniBroj,
-        ime,
-        prezime,
-        broj_telefona: brojTelefona,
-        uloga_id: ulogaId,
-        slika_url: slikaUrl
-    }).then(res => database.select().from('korisnik').where({ id: res[0] }).then(res => humps.camelizeKeys(res[0])));
 };
 
 module.exports = {

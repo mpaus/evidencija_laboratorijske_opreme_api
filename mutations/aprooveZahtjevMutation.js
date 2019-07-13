@@ -15,12 +15,19 @@ const AprooveZahtjevInputType = new GraphQLInputObjectType({
     fields: {
         id: { type: GraphQLNonNull(GraphQLID)},
         odobritelj: { type: GraphQLNonNull(GraphQLID) },
-        napomenaProfesora: { type: GraphQLString }
+        napomenaProfesora: { type: GraphQLString },
+        uredajId: { type: GraphQLNonNull(GraphQLID)}
     }
 });
 
 
-const aprooveZahtjevMutation = async ({ input: { id, odobritelj, napomenaProfesora }}, database) => {
+const aprooveZahtjevMutation = async ({ input: { id, odobritelj, napomenaProfesora, uredajId }}, database) => {
+
+    await database('uredaj')
+        .where('id', '=', uredajId)
+        .update({
+            stanje_id: 3
+        });
 
     return await database('zahtjev_posudbe')
         .where('id', '=', id)

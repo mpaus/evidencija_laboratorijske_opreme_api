@@ -13,12 +13,19 @@ import { zahtjevPosudbeType }  from '../types';
 const ReturnUredajZahtjevInputType = new GraphQLInputObjectType({
     name: 'ReturnUredajZahtjevInput',
     fields: {
-        id: { type: GraphQLNonNull(GraphQLID)}
+        id: { type: GraphQLNonNull(GraphQLID)},
+        uredajId: { type: GraphQLNonNull(GraphQLID)}
     }
 });
 
 
-const returnUredajZahtjevMutation = async ({ input: { id }}, database) => {
+const returnUredajZahtjevMutation = async ({ input: { id, uredajId }}, database) => {
+
+    await database('uredaj')
+        .where('id', '=', uredajId)
+        .update({
+            stanje_id: 1
+        });
 
     return await database('zahtjev_posudbe')
         .where('id', '=', id)

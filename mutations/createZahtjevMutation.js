@@ -2,17 +2,8 @@ import {
     GraphQLInputObjectType,
     GraphQLNonNull,
     GraphQLString,
-    GraphQLID,
-    GraphQLFloat,
-    GraphQLInt
 } from 'graphql';
 import humps from 'humps';
-import bcrypt from 'bcryptjs';
-import toArray from 'stream-to-array';
-import uredajType from '../types/uredajType';
-import { storage } from '../google_cloud_storage/index';
-import { GraphQLUpload } from 'graphql-upload'
-import fs from 'fs';
 
 import { zahtjevPosudbeType }  from '../types';
 
@@ -29,6 +20,12 @@ const ZahtjevInputType = new GraphQLInputObjectType({
 
 
 const createZahtjevMutation = async ({ input: { pocetakPosudbe, krajPosudbe, razlogPosudbe, korisnikId, uredajId }}, database) => {
+
+    await database('uredaj')
+        .where('id', '=', uredajId)
+        .update({
+           stanje_id: 2
+        });
 
     return await database('zahtjev_posudbe').insert({
         pocetak_posudbe: pocetakPosudbe,

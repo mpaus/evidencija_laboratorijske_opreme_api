@@ -28,39 +28,64 @@ const UredajInputType = new GraphQLInputObjectType({
     }
 });
 
+async function pipeToServer(filename, stream){
+    return new Promise(resolve => {
+        const writeStream = fs.createWriteStream(filename);
+
+        stream.pipe(writeStream);
+
+        writeStream.on('finish', (res) => resolve(res));
+    })
+}
 
 const createUredajMutation = async ({ input: { nazivUredaja, serijskiBroj, cijena, napomena, specifikacije, kategorijaId }, file}, database) => {
 
-    let slikaUrl = null;
+    if(file) {
+        const slika = await file;
 
-    await file.then(async slika => {
-
-        const { filename, mimetype, createReadStream } = slika;
+        const {filename, mimetype, encoding, createReadStream} = slika;
 
         const stream = createReadStream();
 
         const bucket = storage.bucket('evidencija_laboratorijske_opreme');
 
-        slikaUrl = await bucket.upload(stream.path, {
+        await pipeToServer(filename, stream);
+
+        const image = await bucket.upload(filename, {
             destination: filename,
             metadata: {
                 contentType: mimetype,
-            }}).then(async (res) => res[0].getMetadata().then(res => {
-            console.log(res[0]);
-            return res[0].mediaLink;
-        })).catch(err => console.log(err));
-    });
+                encoding
+            }
+        }).then(res => res[0]);
 
-    return await database('uredaj').insert({
-        naziv_uredaja: nazivUredaja,
-        serijski_broj: serijskiBroj,
-        cijena,
-        napomena,
-        specifikacije,
-        kategorija_id: kategorijaId,
-        slika_url: slikaUrl,
-        stanje_id: 1
-    }).then(res => database.select().from('uredaj').where({ id: res[0] }).then(res => humps.camelizeKeys(res[0])));
+        await fs.unlinkSync(filename);
+
+        const metadata = await image.getMetadata();
+
+        return await database('uredaj').insert({
+            naziv_uredaja: nazivUredaja,
+            serijski_broj: serijskiBroj,
+            cijena,
+            napomena,
+            specifikacije,
+            kategorija_id: kategorijaId,
+            slika_url: metadata[0].mediaLink,
+            stanje_id: 1
+        }).then(res => database.select().from('uredaj').where({ id: res[0] }).then(res => humps.camelizeKeys(res[0])));
+    } else {
+        return await database('uredaj').insert({
+            naziv_uredaja: nazivUredaja,
+            serijski_broj: serijskiBroj,
+            cijena,
+            napomena,
+            specifikacije,
+            kategorija_id: kategorijaId,
+            slika_url: null,
+            stanje_id: 1
+        }).then(res => database.select().from('uredaj').where({ id: res[0] }).then(res => humps.camelizeKeys(res[0])));
+    }
+
 };
 
 module.exports = {
