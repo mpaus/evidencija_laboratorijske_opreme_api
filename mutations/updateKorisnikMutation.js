@@ -2,10 +2,8 @@ import {
     GraphQLInputObjectType,
     GraphQLNonNull,
     GraphQLString,
-    GraphQLID,
 } from 'graphql';
 import humps from 'humps';
-import bcrypt from 'bcryptjs';
 import { storage } from '../google_cloud_storage/index';
 import { GraphQLUpload } from 'graphql-upload'
 
@@ -36,6 +34,14 @@ async function pipeToServer(filename, stream){
 const updateKorisnikMutation = async ({ input: { id, maticniBroj, ime, prezime, brojTelefona }, file}, database) => {
 
     const odabraniKorisnik = await database('korisnik').where('id', '=', id).then(res => res[0]);
+
+    const existingUser = await database('korisnik')
+        .select()
+        .where('maticni_broj', '=', maticniBroj)
+        .where('id', '!=', id)
+        .then(res => res[0]);
+
+    if(existingUser) throw new Error('Matični broj već postoji');
 
     if(file) {
         const slika = await file;

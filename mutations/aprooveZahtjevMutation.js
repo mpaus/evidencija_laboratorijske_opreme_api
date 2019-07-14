@@ -3,8 +3,6 @@ import {
     GraphQLNonNull,
     GraphQLString,
     GraphQLID,
-    GraphQLFloat,
-    GraphQLInt
 } from 'graphql';
 import humps from 'humps';
 

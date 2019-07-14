@@ -5,10 +5,17 @@ import {
 
 import { korisnikType } from '../types';
 
-const deleteKorisnikMutation = async ({ input }, database) => await database('korisnik')
-            .where('id', input)
-            .del()
-            .then( () => ( { id: input }));
+const deleteKorisnikMutation = async ({ input }, database) => {
+
+    await database('zahtjev_posudbe')
+        .where('korisnik_id', input)
+        .del();
+
+    return await database('korisnik')
+        .where('id', input)
+        .del()
+        .then( () => ( { id: input }));
+};
 
 module.exports = {
     type: korisnikType,

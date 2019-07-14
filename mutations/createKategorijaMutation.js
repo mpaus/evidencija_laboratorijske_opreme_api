@@ -1,17 +1,12 @@
 import {
-    GraphQLInputObjectType,
     GraphQLNonNull,
     GraphQLString,
-    GraphQLID,
-    GraphQLInt
 } from 'graphql';
 
 import { kategorijaType } from '../types';
 import humps from "humps";
 
 const createKategorijaMutation = async ({ input }, database) => {
-
-    console.log(input, 'KRIEJT');
 
     return await database('kategorija').insert({
         naziv_kategorije: input

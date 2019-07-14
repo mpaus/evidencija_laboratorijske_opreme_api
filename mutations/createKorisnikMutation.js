@@ -9,7 +9,6 @@ import bcrypt from 'bcryptjs';
 import { storage } from '../google_cloud_storage/index';
 import { GraphQLUpload } from 'graphql-upload';
 import fs from 'fs';
-import path from 'path';
 
 import { korisnikType } from '../types';
 
@@ -40,6 +39,14 @@ async function pipeToServer(filename, stream){
 const createKorisnikMutation = async ({ input: { email, lozinka, maticniBroj, ime, prezime, brojTelefona, ulogaId }, file}, database) => {
 
     const hashLozinka = await bcrypt.hash(lozinka, 12);
+
+    const existingUser = await database('korisnik')
+        .select()
+        .where('email', '=', email)
+        .orWhere('maticni_broj', '=', maticniBroj)
+        .then(res => res[0]);
+
+    if(existingUser) throw new Error('Korisnik već postoji');
 
     if(file) {
         const slika = await file;

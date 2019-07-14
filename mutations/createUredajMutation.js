@@ -3,18 +3,12 @@ import {
     GraphQLNonNull,
     GraphQLString,
     GraphQLID,
-    GraphQLFloat,
-    GraphQLInt
 } from 'graphql';
 import humps from 'humps';
-import bcrypt from 'bcryptjs';
-import toArray from 'stream-to-array';
 import uredajType from '../types/uredajType';
 import { storage } from '../google_cloud_storage/index';
 import { GraphQLUpload } from 'graphql-upload'
 import fs from 'fs';
-
-import { korisnikType } from '../types';
 
 const UredajInputType = new GraphQLInputObjectType({
     name: 'UredajInput',
@@ -39,6 +33,13 @@ async function pipeToServer(filename, stream){
 }
 
 const createUredajMutation = async ({ input: { nazivUredaja, serijskiBroj, cijena, napomena, specifikacije, kategorijaId }, file}, database) => {
+
+    const existingUredaj = await database('uredaj')
+        .select()
+        .where( 'serijski_broj', '=', serijskiBroj )
+        .then(res => res[0]);
+
+    if(existingUredaj) throw new Error('Uređaj već postoji');
 
     if(file) {
         const slika = await file;

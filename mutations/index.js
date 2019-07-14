@@ -1,6 +1,5 @@
 export CreateKorisnikMutation from './createKorisnikMutation';
 export UpdateKorisnikMutation from './updateKorisnikMutation';
-export LoginMutation from './loginMutation';
 export DeleteKorisnikMutation from './deleteKorisnikMutation';
 export DeleteUredajMutation from './deleteUredajMutation';
 export CreateKategorijaMutation from './createKategorijaMutation';

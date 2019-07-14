@@ -1,8 +1,6 @@
 import {
-    GraphQLInputObjectType,
     GraphQLNonNull,
     GraphQLID,
-    GraphQLInt
 } from 'graphql';
 
 import { uredajType } from '../types';
