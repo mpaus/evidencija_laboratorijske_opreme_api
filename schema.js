@@ -107,6 +107,12 @@ const RootQueryType = new GraphQLObjectType({
         stanjeId: {
           type: GraphQLID,
         },
+        korisnikId: {
+          type: GraphQLID
+        },
+        odobritelj: {
+          type: GraphQLID
+        }
       },
       resolve(obj, args, { database }) {
         if(Object.entries(args).length !== 0){

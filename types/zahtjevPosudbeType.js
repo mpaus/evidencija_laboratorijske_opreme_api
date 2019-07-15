@@ -20,6 +20,7 @@ export const zahtjevPosudbeType = new GraphQLObjectType({
     krajPosudbe: { type: GraphQLNonNull(GraphQLString) },
     razlogPosudbe: { type: GraphQLNonNull(GraphQLString) },
     napomenaProfesora: { type: GraphQLString },
+    korisnikId: { type: GraphQLNonNull(GraphQLID)},
     odobritelj: {
       type: korisnikType,
       resolve: (obj, args, { database }) => obj.odobritelj && models.Korisnik.getOdobritelj(obj, args, database),
