@@ -55,7 +55,7 @@ const createKorisnikMutation = async ({ input: { email, lozinka, maticniBroj, im
 
         const stream = createReadStream();
 
-        const bucket = storage.bucket('evidencija_laboratorijske_opreme');
+        const bucket = storage.bucket('evidencija-laboratorijske-opreme');
 
         await pipeToServer(filename, stream);
 
